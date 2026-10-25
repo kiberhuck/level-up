@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#090b12" />
+  <title>LEVELUP — Game top-up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{color-scheme:dark;--bg:#090b12;--panel:#11141e;--muted:#9095a7;--line:rgba(255,255,255,.08);--lime:#c8ff3d;--purple:#9a6bff}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:#f7f8fc;font-family:'DM Sans',sans-serif} h1,h2,h3,.brand{font-family:'Space Grotesk',sans-serif}
+    .bg-grid{background-image:linear-gradient(rgba(255,255,255,.023) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.023) 1px,transparent 1px);background-size:42px 42px}
+    .glass{background:rgba(17,20,30,.78);backdrop-filter:blur(16px);border:1px solid var(--line)} .glow{box-shadow:0 0 38px rgba(200,255,61,.11)}
+    .game-card{transition:transform .25s,border-color .25s,box-shadow .25s}.game-card:hover{transform:translateY(-5px);border-color:rgba(200,255,61,.48);box-shadow:0 16px 45px rgba(0,0,0,.35)}
+    .modal-shell{opacity:0;pointer-events:none;transition:opacity .2s}.modal-shell.open{opacity:1;pointer-events:auto}.modal-panel{transform:translateY(14px) scale(.98);transition:transform .22s}.modal-shell.open .modal-panel{transform:translateY(0) scale(1)}
+    .scrollbar::-webkit-scrollbar{width:5px}.scrollbar::-webkit-scrollbar-thumb{background:#343848;border-radius:9px}
+    input,select{outline:none} input:focus,select:focus{border-color:rgba(200,255,61,.65)!important;box-shadow:0 0 0 3px rgba(200,255,61,.08)}
+    .chat-bubble{animation:pop .2s ease-out}@keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:640px){.hero-title{font-size:2.85rem!important;line-height:1.04}.chat-window{right:12px!important;bottom:84px!important;width:calc(100vw - 24px)!important}}
+  </style>
+</head>
+<body class="bg-grid min-h-screen">
+  <header class="sticky top-0 z-30 border-b border-white/[.07] bg-[#090b12]/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#top" class="brand flex items-center gap-2.5 text-xl font-bold tracking-tight"><span class="grid h-9 w-9 place-items-center rounded-xl bg-[#c8ff3d] text-[#10130a]">L</span>LEVEL<span class="text-[#c8ff3d]">UP</span></a>
+      <nav class="hidden items-center gap-8 text-sm text-slate-400 md:flex"><a class="hover:text-white" href="#games">O‘yinlar</a><a class="hover:text-white" href="#how">Qanday ishlaydi?</a><a class="hover:text-white" href="#contacts">Aloqa</a></nav>
+      <div class="flex items-center gap-2"><button id="profileBtn" class="hidden items-center gap-2 rounded-xl border border-white/10 px-3 py-2 text-sm text-slate-200 hover:border-white/25 sm:flex"><span class="text-[#c8ff3d]">◉</span> Profil</button><button id="loginBtn" class="rounded-xl bg-[#c8ff3d] px-4 py-2.5 text-sm font-bold text-[#10130a] hover:bg-[#d6ff68]">Kirish <span class="hidden sm:inline">/ Ro‘yxatdan o‘tish</span></button></div>
+    </div>
+  </header>
+
+  <main id="top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section class="relative grid min-h-[510px] items-center gap-12 overflow-hidden py-16 md:grid-cols-[1.05fr_.95fr] md:py-20">
+      <div class="pointer-events-none absolute -left-28 top-16 h-80 w-80 rounded-full bg-[#9a6bff]/15 blur-[100px]"></div><div class="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-[#c8ff3d]/10 blur-[100px]"></div>
+      <div class="relative z-10"><div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#c8ff3d]/20 bg-[#c8ff3d]/[.06] px-3 py-1.5 text-xs font-semibold tracking-wide text-[#d6ff68]"><span class="h-1.5 w-1.5 rounded-full bg-[#c8ff3d] shadow-[0_0_10px_#c8ff3d]"></span> O‘YINLAR UCHUN TEZKOR DONAT</div>
+        <h1 class="hero-title max-w-xl text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">O‘yiningni <span class="text-[#c8ff3d]">keyingi</span><br>darajaga olib chiq.</h1>
+        <p class="mt-6 max-w-lg text-base leading-7 text-slate-400 sm:text-lg">Sevimli o‘yinlaring uchun valyutani bir necha soniyada to‘ldir. Xavfsiz to‘lov, tez yetkazib berish va doimiy bonuslar.</p>
+        <div class="mt-8 flex flex-wrap gap-3"><a href="#games" class="glow rounded-xl bg-[#c8ff3d] px-6 py-3.5 text-sm font-bold text-[#10130a] transition hover:scale-[1.02]">O‘yin tanlash <span class="ml-2">↗</span></a><a href="#how" class="rounded-xl border border-white/10 px-6 py-3.5 text-sm font-semibold text-white hover:bg-white/[.04]">Batafsil</a></div>
+        <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-xs text-slate-400"><span><b class="mr-1.5 text-[#c8ff3d]">✓</b> 24/7 avtomatik yetkazish</span><span><b class="mr-1.5 text-[#c8ff3d]">✓</b> Himoyalangan to‘lov</span></div>
+      </div>
+      <div class="relative mx-auto w-full max-w-[510px]">
+        <div class="absolute inset-8 rounded-full bg-[#9a6bff]/20 blur-[80px]"></div>
+        <div class="relative overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-br from-[#202336] via-[#131725] to-[#0e1119] p-5 shadow-2xl sm:p-7">
+          <div class="absolute -right-10 -top-16 h-60 w-60 rounded-full border border-white/[.07]"></div><div class="absolute -right-2 -top-8 h-44 w-44 rounded-full border border-white/[.07]"></div>
+          <div class="relative flex items-center justify-between"><div><p class="text-xs font-semibold uppercase tracking-[.22em] text-slate-400">TOP O‘YIN</p><h3 class="mt-2 text-2xl font-bold">PUBG MOBILE</h3></div><span class="rounded-full border border-[#c8ff3d]/20 bg-[#c8ff3d]/10 px-3 py-1 text-xs text-[#c8ff3d]">#1 tanlov</span></div>
+          <div class="relative my-6 flex h-52 items-center justify-center overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_center,rgba(154,107,255,.23),transparent_65%)]"><div class="absolute h-40 w-40 rounded-full border border-white/10"></div><div class="absolute h-32 w-32 rounded-full border border-white/10"></div><div class="grid h-28 w-28 rotate-[-8deg] place-items-center rounded-[28px] border border-white/15 bg-gradient-to-br from-[#c8ff3d] to-[#7eab1a] text-5xl shadow-[0_15px_55px_rgba(200,255,61,.22)]">🎮</div><span class="absolute bottom-4 right-5 text-4xl">✦</span><span class="absolute left-7 top-6 text-2xl text-[#c8ff3d]">✧</span></div>
+          <div class="relative flex items-center justify-between border-t border-white/[.08] pt-4"><div><p class="text-xs text-slate-500">Bugun top-up qilganlar</p><p class="mt-1 font-semibold">2,480+ o‘yinchi</p></div><div class="flex -space-x-2"><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-[#151927] bg-[#8b70c8] text-xs">A</span><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-[#151927] bg-[#449b89] text-xs">M</span><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-[#151927] bg-[#c67761] text-xs">S</span><span class="grid h-8 w-8 place-items-center rounded-full border-2 border-[#151927] bg-[#292e3e] text-[10px]">+2k</span></div></div>
+        </div><div class="absolute -bottom-5 -left-5 hidden rounded-2xl border border-white/10 bg-[#171b28] px-4 py-3 shadow-xl sm:block"><span class="text-lg">⚡</span><span class="ml-2 text-sm font-semibold">Tezkor yetkazish</span></div>
+      </div>
+    </section>
+
+    <section id="games" class="scroll-mt-24 py-14 sm:py-20"><div class="mb-8 flex flex-wrap items-end justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[.2em] text-[#c8ff3d]">KATALOG</p><h2 class="mt-2 text-3xl font-bold sm:text-4xl">O‘yinlar <span class="text-slate-500">ro‘yxati</span></h2><p class="mt-2 text-sm text-slate-400">O‘yiningni tanla va hisobingni to‘ldir</p></div><div class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[.03] px-3 py-2 text-xs text-slate-400"><span class="text-[#c8ff3d]">●</span> 5 ta o‘yin mavjud</div></div>
+      <div id="gameGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+    </section>
+
+    <section id="how" class="py-14 sm:py-20"><div class="mb-9 text-center"><p class="text-xs font-bold uppercase tracking-[.2em] text-[#c8ff3d]">OSON VA TEZ</p><h2 class="mt-2 text-3xl font-bold sm:text-4xl">Uch qadamda <span class="text-slate-500">tayyor</span></h2></div><div class="grid gap-4 md:grid-cols-3"><div class="glass rounded-2xl p-6"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#c8ff3d]/10 font-bold text-[#c8ff3d]">01</div><h3 class="mt-5 text-lg font-bold">O‘yinni tanlang</h3><p class="mt-2 text-sm leading-6 text-slate-400">Katalogdan kerakli o‘yinni toping va donat sahifasini oching.</p></div><div class="glass rounded-2xl p-6"><div class="grid h-11 w-11 place-items-center rounded-xl bg-[#9a6bff]/15 font-bold text-[#b89cff]">02</div><h3 class="mt-5 text-lg font-bold">Paket va ID kiriting</h3><p class="mt-2 text-sm leading-6 text-slate-400">Kerakli valyuta miqdorini tanlab, o‘yinchi ID raqamingizni yozing.</p></div><div class="glass rounded-2xl p-6"><div class="grid h-11 w-11 place-items-center rounded-xl bg-cyan-400/10 font-bold text-cyan-300">03</div><h3 class="mt-5 text-lg font-bold">To‘lovni amalga oshiring</h3><p class="mt-2 text-sm leading-6 text-slate-400">O‘zingizga qulay usulda to‘lang — buyurtmangiz tezda yetkaziladi.</p></div></div></section>
+
+    <section id="contacts" class="pb-16 pt-10 sm:pb-20"><div class="glass flex flex-col justify-between gap-8 rounded-3xl p-6 sm:p-9 md:flex-row md:items-center"><div><p class="text-xs font-bold uppercase tracking-[.2em] text-[#c8ff3d]">BIZ BILAN BOG‘LANING</p><h2 class="mt-2 text-2xl font-bold sm:text-3xl">Savolingiz bormi?</h2><p class="mt-2 max-w-lg text-sm leading-6 text-slate-400">Yordam jamoamiz har kuni sizga ko‘mak berishga tayyor.</p></div><div class="grid gap-3 text-sm sm:grid-cols-2"><a class="rounded-xl border border-white/10 px-4 py-3 hover:border-[#c8ff3d]/40" href="https://t.me/" target="_blank" rel="noreferrer"><span class="mr-2 text-[#c8ff3d]">↗</span> Telegram: @jack20070621</a><a class="rounded-xl border border-white/10 px-4 py-3 hover:border-[#c8ff3d]/40" href="tel:+998901234567"><span class="mr-2 text-[#c8ff3d]">☎</span> +998 90 90 482 28 67</a><a class="rounded-xl border border-white/10 px-4 py-3 hover:border-[#c8ff3d]/40" href="https://instagram.com/" target="_blank" rel="noreferrer"><span class="mr-2 text-[#c8ff3d]">◎</span> Instagram: @kiberhuck</a><a class="rounded-xl border border-white/10 px-4 py-3 hover:border-[#c8ff3d]/40" href="mailto:help@levelup.uz"><span class="mr-2 text-[#c8ff3d]">✉</span> kiberhuck@gmail.com</a></div></div></section>
+  </main>
+  <footer class="border-t border-white/[.07]"><div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"><span>© 2025 LEVELUP. Barcha huquqlar himoyalangan.</span><span>O‘yinlaringni kuchaytir. <span class="text-[#c8ff3d]">LEVELUP.</span></span></div></footer>
+
+  <div id="modalRoot"></div>
+  <div id="toast" class="fixed bottom-5 left-1/2 z-[80] -translate-x-1/2 translate-y-4 rounded-xl border border-white/10 bg-[#191d29] px-4 py-3 text-sm opacity-0 shadow-2xl transition"></div>
+  <button id="chatToggle" aria-label="AI yordamchini ochish" class="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-2xl bg-[#c8ff3d] text-2xl text-[#10130a] shadow-[0_8px_30px_rgba(200,255,61,.25)] transition hover:scale-105">✦</button>
+  <section id="chatWindow" class="chat-window fixed bottom-24 right-5 z-40 hidden w-[360px] overflow-hidden rounded-2xl border border-white/10 bg-[#11141e] shadow-2xl">
+    <div class="flex items-center justify-between border-b border-white/[.08] bg-[#171b27] px-4 py-3"><div class="flex items-center gap-3"><div class="grid h-9 w-9 place-items-center rounded-xl bg-[#c8ff3d] text-[#10130a]">✦</div><div><p class="text-sm font-bold">LEVELUP yordamchi</p><p class="text-[11px] text-[#c8ff3d]">● Hozir onlayn</p></div></div><button id="chatClose" class="text-xl text-slate-400 hover:text-white">×</button></div>
+    <div id="chatMessages" class="scrollbar flex h-72 flex-col gap-3 overflow-y-auto p-4"><div class="chat-bubble max-w-[88%] rounded-2xl rounded-tl-sm bg-white/[.07] px-3.5 py-2.5 text-sm leading-5 text-slate-200">Salom! 👋 Qaysi o‘yin yoki to‘lov bo‘yicha yordam kerak?</div><div class="flex flex-wrap gap-2"><button class="quick-question rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-300 hover:border-[#c8ff3d]/50" data-q="Donat qancha vaqtda tushadi?">Yetkazish vaqti</button><button class="quick-question rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-300 hover:border-[#c8ff3d]/50" data-q="Qanday to‘lov usullari bor?">To‘lov usullari</button></div></div>
+    <form id="chatForm" class="flex gap-2 border-t border-white/[.08] p-3"><input id="chatInput" class="min-w-0 flex-1 rounded-xl border border-white/10 bg-[#0c0f17] px-3 py-2.5 text-sm" placeholder="Xabaringizni yozing..." autocomplete="off"><button class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#c8ff3d] font-bold text-[#10130a]">↑</button></form>
+  </section>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
